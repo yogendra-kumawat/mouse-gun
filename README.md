@@ -93,6 +93,9 @@ The gun has an **MPU6050 IMU** (gyroscope + accelerometer) mounted inside. An **
 | Gun-shaped enclosure | Holds all components |
 | 3.7V LiPo battery | Portable power |
 
+## Structure
+<img width="960" height="1280" alt="image" src="https://github.com/user-attachments/assets/f70f7e45-8c2d-41fe-a519-e2847557b1ef" />
+
 ### Wiring
 
 | STM32 Pin | Connected To | Notes |
@@ -369,39 +372,10 @@ Run cells top to bottom. Keep the gun connected and start the game — the cross
 - **Aim feels jittery** → increase `my_count` (more averaging)
 - **Aim feels delayed** → decrease `my_count`
 
----
-
-## 📁 Project Structure
-
-```
-mouse-gun/
-├── firmware/
-│   └── main.c           # STM32 firmware (I²C IMU + UART TX)
-├── python/
-│   └── main.ipynb       # PC-side: serial parse + mouse control
-└── README.md
-```
 
 ---
 
-## ⚠️ Known Issues & Roadmap
-
-### Current Issues
-
-| Issue | Cause | Fix |
-|-------|-------|-----|
-| Crosshair drifts slowly | Gyro bias / temperature drift | Calibrate gyro bias on startup; subtract offset |
-| `OSError: [Errno 5]` on Linux | Bluetooth rfcomm disconnected mid-session | Reconnect and re-bind rfcomm; auto-reconnect in Python |
-| Averaging loop blocks on same line | `readline()` only reads new data once | Fix: collect N consecutive lines, not re-parse the same one |
-
-### Roadmap
-
-- [ ] **Gyro bias calibration** — average 1000 samples at startup with gun held still; subtract as offset
-- [ ] **Complementary filter** — blend gyro + accelerometer for absolute orientation (eliminates drift entirely)
-- [ ] **Recoil effect** — pulse a vibration motor on trigger press for haptic feedback
-- [ ] **More buttons** — reload (R key), ADS (right-click), crouch — mapped to additional GPIO buttons
-- [ ] **USB HID mode** — present the STM32 as a USB HID mouse directly, eliminating Python entirely for lower latency
-- [ ] **Windows Bluetooth fix** — test and document COM port setup for Windows users
+  **Windows Bluetooth fix** — test and document COM port setup for Windows users
 
 ---
 
