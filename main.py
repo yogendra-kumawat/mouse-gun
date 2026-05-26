@@ -3,7 +3,7 @@ import serial
 pyautogui.PAUSE = 0
 pyautogui.FAILSAFE=False
 PORT = 'COM6' 
-BAUD_RATE = 9600
+BAUD_RATE = 230400
 ser = serial.Serial(PORT, BAUD_RATE, timeout=1)
 screen_width, screen_height = pyautogui.size()
 next_val=0
